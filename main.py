@@ -8,5 +8,5 @@ print(p.name)
 files=[]
 
 for file in p.iterdir():
-    files.append(file)
-print(files)
+    if file.is_file:
+        files.append(file)
