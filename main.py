@@ -15,6 +15,8 @@ for file in p.iterdir():
         files.append(file)
 
 for mango in files:
-    extentions.append(mango.suffix)
+    extentions.append(mango.suffix.lstrip('.'))
 
-print(extentions)
+unique_extentions=set(extentions)
+
+print(unique_extentions)
