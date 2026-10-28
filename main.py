@@ -11,6 +11,7 @@ if not p.is_dir():
     print('enter a folder destination')
 
 for file in p.iterdir():
+    print(file.name)
     if file.is_file():
         files.append(file)
 
@@ -37,6 +38,6 @@ for folder in p.iterdir():
     if  folder.is_dir():
         for file in p.iterdir():
              if file.is_file():
-                  shutil.move(file,folder)
+                  if folder.name==file.suffix.lstrip('.'):
+                    shutil.move(file,folder)
 
-#C:\Users\Engineering CQAI\Desktop\demo_organised
