@@ -20,3 +20,11 @@ for mango in files:
 unique_extentions=set(extentions)
 
 print(unique_extentions)
+
+for unique in unique_extentions:
+    new_ext=p / unique
+    if not new_ext.exists():
+        new_ext.mkdir()
+        print(f'{new_ext} foulder created')
+    else:
+        print(f'{new_ext} folder already exists')
