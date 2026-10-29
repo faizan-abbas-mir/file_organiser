@@ -1,5 +1,5 @@
 from pathlib import Path
-import shutil
+import shutil,sys
 
 files=[]
 extentions=[]
@@ -9,6 +9,7 @@ p=Path(directory)
 
 if not p.is_dir():
     print('enter a folder destination')
+    sys.exit(0)
 
 for file in p.iterdir():
     print(file.name)
@@ -23,7 +24,9 @@ unique_extentions=set(extentions)
 created_foulders=[]
 
 for unique in unique_extentions:
-    new_ext=p / unique      
+    new_ext=p / unique 
+    if new_ext==p:
+        p('others').mkdir()     
     if not new_ext.exists():
         new_ext.mkdir()
         created_foulders.append(new_ext)
