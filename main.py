@@ -2,7 +2,7 @@ from pathlib import Path
 import shutil,sys
 
 files=[]
-extentions=[]
+extentions=set()
 
 directory=input('enter target folder: ')
 p=Path(directory)
@@ -11,36 +11,32 @@ if not p.is_dir():
     print('enter a folder destination')
     sys.exit(0)
 
-for file in p.iterdir():
-    print(file.name)
-    if file.is_file():
-        files.append(file)
+def make_folders(p):
+    
+    for file in p.iterdir():
+        if file.is_file():
+            extentions.add(file.suffix.lstrip("."))
 
-for mango in files:
-    extentions.append(mango.suffix.lstrip('.'))
+    for each in extentions:
+        flag=''
+        new_ext=p/each
+        if new_ext==p:
+           flag=p/'others'
+        else:
+            new_ext.mkdir()
+        if not flag=='':
+            flag.mkdir()
+    
 
-unique_extentions=set(extentions)
-
-created_foulders=[]
-
-for unique in unique_extentions:
-    new_ext=p / unique 
-    if new_ext==p:
-        p('others').mkdir()     
-    if not new_ext.exists():
-        new_ext.mkdir()
-        created_foulders.append(new_ext)
-        print(f'{new_ext} foulder created')
-    else:
-        print(f'{new_ext} folder already exists')
-
-print(f'created_foulders={created_foulders}')
-
-
+make_folders(p=p)
 for folder in p.iterdir():
     if  folder.is_dir():
         for file in p.iterdir():
              if file.is_file():
-                  if folder.name==file.suffix.lstrip('.'):
+                if folder.name==file.suffix.lstrip('.'):
                     shutil.move(file,folder)
+for file in p.iterdir():
+    if file.is_file():
+        shutil.move(file,p/'others')
 
+#C:\Users\Engineering CQAI\Desktop\demo_organised
